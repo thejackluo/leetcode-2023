@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        // initialize new linked list with node 
+        ListNode result = ListNode(0);
+        int count = 0;
+
+        // for each node (assuming that it exists)
+        while (l1 -> next != nullptr || l2 -> next != nullptr) {
+            count = 0;
+            if (l1 -> next != nullptr) {
+                count += l1 -> val;
+            }
+            if (l2 -> next != nullptr) {
+                count += l2 -> val;
+            }
+
+            if (count > 9) {
+                count -= 10;
+                result -> val += count;
+                result -> next = ListNode(1);
+            } else {
+                result -> val += count;
+                result -> next = ListNode(0);                
+            }
+            // go to the next node
+            result = result -> next;
+        }
+        
+        // delete the final node if zero
+        if (result -> val == 0) {
+            result = nullptr
+        }
+
+        return result;
+    }
+};
